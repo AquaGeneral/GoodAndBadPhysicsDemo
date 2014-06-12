@@ -49,7 +49,7 @@ public class CCMovement : MonoBehaviour {
         } else {
             IsGrounded = false;
         }
-        Debug.Log(acceleration.y);
+        //Debug.Log(acceleration.y);
 
         if(Input.GetAxisRaw("Horizontal") != 0f) {
             accelerationModifier = Mathf.Min(accelerationModifier + Time.fixedDeltaTime * 2f, 2f);
@@ -61,12 +61,6 @@ public class CCMovement : MonoBehaviour {
         acceleration = new Vector3(speed * accelerationModifier * Time.fixedDeltaTime * Input.GetAxisRaw("Horizontal"),
             acceleration.y, acceleration.z);
 
-        // Add vertical acceleration if the player has jumped
-        if(isJumping && isGrounded) {
-            acceleration = new Vector3(acceleration.x, jumpStrength, 0f);
-            isJumping = false;
-        }
-
         // Apply gravity only when not grounded
         if(IsGrounded == false) {
             acceleration -= new Vector3(0f, gravity * Time.fixedDeltaTime, 0f);
@@ -76,11 +70,13 @@ public class CCMovement : MonoBehaviour {
     }
 
     void Update() {
-        isJumping = Input.GetButtonDown("Jump");
-    }
-
-    void OnDrawGizmos() {
-        Gizmos.DrawRay(new Ray(transform.position, Vector3.down));
+        // Add vertical acceleration if the player has jumped
+        if(Input.GetButtonDown("Jump") && IsGrounded) {
+            //Debug.Log("Jump");
+            acceleration = new Vector3(acceleration.x, jumpStrength, 0f);
+            Debug.Log(acceleration);
+            IsGrounded = false;
+        }
     }
 
     void OnGUI() {

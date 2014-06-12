@@ -767,7 +767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   gravity: 1
-  jumpStrength: .300000012
+  jumpStrength: 2
 --- !u!114 &1540760224
 MonoBehaviour:
   m_ObjectHideFlags: 0
