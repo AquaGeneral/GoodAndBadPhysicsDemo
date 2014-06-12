@@ -6,6 +6,8 @@ public class CCMovement : MonoBehaviour {
     public float gravity = 1.5f;
     public float jumpStrength = 0.5f;
 
+    public static GameObject player;
+
     private CharacterController characterController;
     private Vector3 acceleration;
 
@@ -18,7 +20,7 @@ public class CCMovement : MonoBehaviour {
         }
         set {
             // Reset the y acceleration if the player just landed back onto the ground
-            if(isGrounded != value && value == true) {
+            if(isGrounded != value && value == true && acceleration.y < 0f) {
                 acceleration = new Vector3(acceleration.x, 0f, acceleration.z);
             }
             isGrounded = value;
@@ -26,8 +28,9 @@ public class CCMovement : MonoBehaviour {
     }
     private int layerMask = 1 >> 8;
     private bool isJumping;
-
+    
     void Start() {
+        player = gameObject;
         characterController = GetComponent<CharacterController>();
     }
 
@@ -49,7 +52,6 @@ public class CCMovement : MonoBehaviour {
         } else {
             IsGrounded = false;
         }
-        //Debug.Log(acceleration.y);
 
         if(Input.GetAxisRaw("Horizontal") != 0f) {
             accelerationModifier = Mathf.Min(accelerationModifier + Time.fixedDeltaTime * 2f, 2f);
@@ -80,6 +82,7 @@ public class CCMovement : MonoBehaviour {
     }
 
     void OnGUI() {
-        GUILayout.Label(isGrounded.ToString());
+        GUILayout.Label("Grounded: " + isGrounded.ToString());
+        GUILayout.Label("Acceleration: " + acceleration);
     }
 }

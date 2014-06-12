@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerBullet : MonoBehaviour {
+public class Bullet : MonoBehaviour {
     public float speed = 2f;
+    public int ignoreLayer = 8; // The layer that will be ignored from this bullet
 
     // TODO: What happens if this in just Update?
     void FixedUpdate() {
@@ -11,7 +12,7 @@ public class PlayerBullet : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider) {
         // Ignore the player
-        if(collider.gameObject.layer != 8) { 
+        if(collider.gameObject.layer != ignoreLayer) { 
             Destroy(gameObject);
         }
     }
