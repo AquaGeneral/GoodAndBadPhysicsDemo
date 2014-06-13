@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CCMovement : MonoBehaviour {
+public class CCMovement : Actor {
     public float speed = 6f;
     public float gravity = 1.5f;
     public float jumpStrength = 0.5f;
@@ -26,6 +26,7 @@ public class CCMovement : MonoBehaviour {
             isGrounded = value;
         }
     }
+
     private int layerMask = 1 >> 8;
     private bool isJumping;
     
@@ -43,7 +44,7 @@ public class CCMovement : MonoBehaviour {
         * some collision error margins (based on the Min Penatration for Panalty multiplied by two, for the
         * two collisions).
         */
-        if(Physics.Raycast(new Ray(transform.position, Vector3.down), out hitInfo)) {
+        if(Physics.SphereCast(new Ray(transform.position, Vector3.down), 0.25f, out hitInfo)) {
             if((transform.position - hitInfo.point).y <= 0.58f) {
                 IsGrounded = true;
             } else {
@@ -74,15 +75,20 @@ public class CCMovement : MonoBehaviour {
     void Update() {
         // Add vertical acceleration if the player has jumped
         if(Input.GetButtonDown("Jump") && IsGrounded) {
-            //Debug.Log("Jump");
             acceleration = new Vector3(acceleration.x, jumpStrength, 0f);
-            Debug.Log(acceleration);
             IsGrounded = false;
         }
     }
 
     void OnGUI() {
-        GUILayout.Label("Grounded: " + isGrounded.ToString());
+        GUILayout.Space(50f);
+        GUILayout.Label("Grounded: " + isGrounded);
         GUILayout.Label("Acceleration: " + acceleration);
+        GUILayout.Label("Health: " + health);
+    }
+
+    internal override IEnumerator Die(Vector3 hitPosition) {
+        Application.LoadLevel(0);
+        yield return null;
     }
 }
