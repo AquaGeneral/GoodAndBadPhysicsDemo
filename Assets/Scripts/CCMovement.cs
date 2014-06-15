@@ -44,8 +44,8 @@ public class CCMovement : Actor {
         * some collision error margins (based on the Min Penatration for Panalty multiplied by two, for the
         * two collisions).
         */
-        if(Physics.SphereCast(new Ray(transform.position, Vector3.down), 0.25f, out hitInfo)) {
-            if((transform.position - hitInfo.point).y <= 0.58f) {
+        if(Physics.SphereCast(new Ray(transform.position, Vector3.down), 0.25f * SceneManager.Instance.Scale, out hitInfo)) {
+            if((transform.position - hitInfo.point).y <= 0.58f * SceneManager.Instance.Scale) {
                 IsGrounded = true;
             } else {
                 IsGrounded = false;
@@ -61,12 +61,12 @@ public class CCMovement : Actor {
         }
 
         // Set the horizontal acceleration
-        acceleration = new Vector3(speed * accelerationModifier * Time.fixedDeltaTime * Input.GetAxisRaw("Horizontal"),
+        acceleration = new Vector3(Input.GetAxisRaw("Horizontal") * speed * accelerationModifier * SceneManager.Instance.Scale * Time.fixedDeltaTime,
             acceleration.y, acceleration.z);
 
         // Apply gravity only when not grounded
         if(IsGrounded == false) {
-            acceleration -= new Vector3(0f, gravity * Time.fixedDeltaTime, 0f);
+            acceleration -= new Vector3(0f, gravity * SceneManager.Instance.Scale * Time.fixedDeltaTime, 0f);
         }
 
         characterController.Move(acceleration);
@@ -75,7 +75,7 @@ public class CCMovement : Actor {
     void Update() {
         // Add vertical acceleration if the player has jumped
         if(Input.GetButtonDown("Jump") && IsGrounded) {
-            acceleration = new Vector3(acceleration.x, jumpStrength, 0f);
+            acceleration = new Vector3(acceleration.x, jumpStrength * SceneManager.Instance.Scale, 0f);
             IsGrounded = false;
         }
     }

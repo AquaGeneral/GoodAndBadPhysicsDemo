@@ -17,6 +17,8 @@ public class SideCamera : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        transform.position = new Vector3(Mathf.Lerp(transform.position.x, target.position.x, 0.5f), Mathf.Lerp(transform.position.y, target.position.y + heightOffset, 0.2f), -distance);
+        transform.position = new Vector3(Mathf.Lerp(transform.position.x, target.position.x, 0.5f), 
+            Mathf.Lerp(transform.position.y, target.position.y + heightOffset, 0.2f), 
+            -distance * SceneManager.Instance.Scale);
     }
 }
