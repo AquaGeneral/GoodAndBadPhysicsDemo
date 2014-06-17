@@ -34,6 +34,17 @@ public class Enemy : Actor {
         }
     }
 
+    void OnCollisionEnter(Collision collision) {
+        // If the enemy is hit by an object in layer 9 or 10 (another enemy or a heavy object), take health away
+        if(collision.gameObject.layer == 9 || collision.gameObject.layer == 10) { 
+            health -= collision.relativeVelocity.magnitude * collision.rigidbody.mass;
+
+            if(health < 0f) {
+                StartCoroutine(Die(collision.contacts[0].point));
+            }
+        }
+    }
+
     private void Shoot(Ray ray) {
         SceneManager.CreateBullet(projectile, ray.origin, Quaternion.FromToRotation(Vector3.right, ray.direction));
     }
@@ -52,11 +63,13 @@ public class Enemy : Actor {
         // Make the enemy capsule fall over using a rigidbody
         Rigidbody rBody = gameObject.AddComponent<Rigidbody>();
         
-        yield return new WaitForFixedUpdate();
+        //yield return new WaitForFixedUpdate();
         Vector3 vec = (hitPoint - transform.position).normalized;
 
         rBody.AddForceAtPosition((transform.position - hitPoint).normalized * 4f, hitPoint, ForceMode.Impulse);
 
         Destroy(this);
+
+        yield break;
     }
 }

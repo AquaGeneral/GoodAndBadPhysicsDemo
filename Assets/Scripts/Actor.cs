@@ -9,7 +9,7 @@ public class Actor : MonoBehaviour {
     public float health = 100f;
 
     internal virtual void OnBulletHit(Vector3 hitPoint) {
-        health--;
+        health -= 10;
 
         if(health <= 0) {
             StartCoroutine(Die(hitPoint));
