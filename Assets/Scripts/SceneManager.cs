@@ -65,7 +65,9 @@ public class SceneManager : MonoBehaviour {
         MaxAngularVelocity = GUILayout.HorizontalSlider(MaxAngularVelocity, 1f, 60f, GUILayout.Width(150f));
         GUILayout.EndVertical();
 
-        if(GUI.Button(new Rect(760, 5, 140, 30), "Update Scene")) { 
+        UnsyncedPhysics = GUILayout.Toggle(UnsyncedPhysics, "Unsynced Physics");
+
+        if(GUI.Button(new Rect(Screen.width - 150, 50, 140, 30), "Update Scene")) { 
             ApplyModifiers();
         }
 
@@ -85,5 +87,12 @@ public class SceneManager : MonoBehaviour {
 
         // Update Max Angular Velocity
         Physics.maxAngularVelocity = MaxAngularVelocity;
+
+        // Apply Unsynced Physics
+        if(UnsyncedPhysics) {
+            Time.fixedDeltaTime = 0.03f;
+        } else {
+            Time.fixedDeltaTime = 0.015f;
+        }
     }
 }
