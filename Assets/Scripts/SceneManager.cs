@@ -10,10 +10,10 @@ public class SceneManager : MonoBehaviour {
     public float Bounciness { get; private set; }
     public float Drag { get; private set; }
     public float AngularDrag { get; private set; }
-    public float Friction { get; private set; }
     public float MaxAngularVelocity { get; private set; }
     public bool UnsyncedPhysics { get; private set; }
     
+
     private Rect bounds;
     public Rect Bounds {
         get {
@@ -28,9 +28,9 @@ public class SceneManager : MonoBehaviour {
         Bounciness = 1f;
         Drag = 1f;
         AngularDrag = 1f;
-        Friction = 1f;
         MaxAngularVelocity = 50f;
         UnsyncedPhysics = false;
+
 
         ApplyModifiers();
 
