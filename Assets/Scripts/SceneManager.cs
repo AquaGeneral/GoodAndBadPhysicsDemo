@@ -11,13 +11,7 @@ public class SceneManager : MonoBehaviour {
     public float MaxAngularVelocity { get; private set; }
     public bool UnsyncedPhysics { get; private set; }
     
-    private Rect bounds;
-    public Rect Bounds {
-        get {
-            return bounds;
-        }
-    }
-
+    private bool isSelectingScenario;
     private int selected = -1;
     
     void Awake() {
@@ -29,20 +23,19 @@ public class SceneManager : MonoBehaviour {
         AngularDrag = 1f;
         MaxAngularVelocity = 50f;
         UnsyncedPhysics = false;
-
-
-        ApplyModifiers();
-
-        DontDestroyOnLoad(gameObject);
     }
 
     void OnGUI() {
-        GUILayout.BeginHorizontal();
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            isSelectingScenario = !isSelectingScenario;
+        }
+
+        if(isSelectingScenario == false) return;
 
         selected = GUI.SelectionGrid(new Rect(50f, 75f, Screen.width - 100f, Screen.height - 150f), selected, new string[]{"Normal", "Incorrect Scale \n(10x Scale)", 
             "Rigidbody & Character Controller\nTogether", "Directly Modifying a Rigidbody's\nTransform", "Objects Rolling Forever", "Objects Without Bounciness", 
             "Rigidbodies Partially Sinking Into\nGeometry", "Instantiating At The Wrong Time", "Too Low FixedTimestep"}, 2);
-
+        
         if(selected != -1) {
             Debug.Log(selected);
             switch(selected) {
@@ -63,33 +56,11 @@ public class SceneManager : MonoBehaviour {
 
             selected = -1;
         }
-
-        if(GUI.Button(new Rect(Screen.width - 150, 50, 140, 30), "Update Scene")) { 
-            ApplyModifiers();
-        }
-
-        GUILayout.EndHorizontal();
     }
 
     public static void CreateBullet(GameObject projectile, Vector3 projectilePosition, Quaternion projectileAngle) {
         Transform spawned = ((GameObject)Instantiate(projectile, projectilePosition, projectileAngle)).transform;
         spawned.parent = Instance.transform;
         spawned.localScale = spawned.localScale * Instance.Scale;
-    }
-
-    private void ApplyModifiers() {
-        // Update Scale
-        bounds = new Rect(-50f * Scale, -20f * Scale, 100f * Scale, 20f * Scale);
-        transform.localScale = new Vector3(Scale, Scale, Scale);
-
-        // Update Max Angular Velocity
-        Physics.maxAngularVelocity = MaxAngularVelocity;
-
-        // Apply Unsynced Physics
-        if(UnsyncedPhysics) {
-            Time.fixedDeltaTime = 0.03f;
-        } else {
-            Time.fixedDeltaTime = 0.015f;
-        }
     }
 }

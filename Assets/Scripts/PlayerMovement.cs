@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CCMovement : Actor {
+public class PlayerMovement : Actor {
     public float speed = 6f;
     public float gravity = 1.5f;
     public float jumpStrength = 0.5f;

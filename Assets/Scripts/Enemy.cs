@@ -19,7 +19,7 @@ public class Enemy : Actor {
 
         if(timeBetweenShot >= shootRate) {
             // Only shoot if the bullet might hit the player
-            Vector3 direction = (CCMovement.player.transform.position - transform.position).normalized;
+            Vector3 direction = (PlayerMovement.player.transform.position - transform.position).normalized;
             Ray bulletRay = new Ray(transform.position, direction);
             RaycastHit hitInfo;
             
@@ -53,7 +53,7 @@ public class Enemy : Actor {
         if(Application.isPlaying == false) return;
 
         //float angle = Mathf.Atan2(CCMovement.player.transform.position.y - transform.position.y, CCMovement.player.transform.position.x - transform.position.x) * 180f / Mathf.PI;
-        Vector3 direction = (CCMovement.player.transform.position - transform.position).normalized;
+        Vector3 direction = (PlayerMovement.player.transform.position - transform.position).normalized;
         
         Ray bulletRay = new Ray(transform.position, direction);
         Gizmos.DrawRay(bulletRay);

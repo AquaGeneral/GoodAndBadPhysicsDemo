@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour {
 
         // Check if the bulet is out of bounds
         Vector3 pos = transform.position;
-        if(SceneManager.Instance.Bounds.Contains(pos)) {
+        if(pos.x < -50 || pos.x > 50 || pos.y < -50 || pos.y > 50f) {
             Destroy(gameObject);
         }
     }
