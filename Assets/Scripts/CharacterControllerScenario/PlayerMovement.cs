@@ -38,14 +38,14 @@ public class PlayerMovement : Actor {
     void FixedUpdate() {
         RaycastHit hitInfo;
 
-        /**
-        * Check if the player is grounded by seeing how much distance the player and the ground. Here the 
-        * value 0.58 is just based on how many units there are between the center of the player and plus 
-        * some collision error margins (based on the Min Penatration for Panalty multiplied by two, for the
-        * two collisions).
-        */
-        if(Physics.SphereCast(new Ray(transform.position, Vector3.down), 0.25f * SceneManager.Instance.Scale, out hitInfo)) {
-            if((transform.position - hitInfo.point).y <= 0.58f * SceneManager.Instance.Scale) {
+        // Check if the player is grounded by seeing how much distance the player and the ground.
+        if(Physics.SphereCast(new Ray(transform.position, Vector3.down), 0.25f, out hitInfo)) {
+			/*
+			* Here we compare the different from the center of the cpasule to hit point to the value 0.6. This value is used 
+			* since it represents how many units there are between the center of the player and plus allows for some errors 
+			* like Min Penatration for Panalty and float precision.
+			*/
+            if((transform.position - hitInfo.point).y <= 0.6f) {
                 IsGrounded = true;
             } else {
                 IsGrounded = false;
@@ -61,12 +61,12 @@ public class PlayerMovement : Actor {
         }
 
         // Set the horizontal acceleration and move the player back to the center of the Z axis
-        acceleration = new Vector3(Input.GetAxisRaw("Horizontal") * speed * accelerationModifier * SceneManager.Instance.Scale * Time.fixedDeltaTime,
+        acceleration = new Vector3(Input.GetAxisRaw("Horizontal") * speed * accelerationModifier * Time.fixedDeltaTime,
             acceleration.y, -transform.position.z * Time.fixedDeltaTime * 2f);
 
         // Apply gravity only when not grounded
         if(IsGrounded == false) {
-            acceleration -= new Vector3(0f, gravity * SceneManager.Instance.Scale * Time.fixedDeltaTime, 0f);
+            acceleration -= new Vector3(0f, gravity * Time.fixedDeltaTime, 0f);
         }
 
         characterController.Move(acceleration);
@@ -75,20 +75,17 @@ public class PlayerMovement : Actor {
     void Update() {
         // Add vertical acceleration if the player has jumped
         if(Input.GetButtonDown("Jump") && IsGrounded) {
-            acceleration = new Vector3(acceleration.x, jumpStrength * SceneManager.Instance.Scale, 0f);
+            acceleration = new Vector3(acceleration.x, jumpStrength, 0f);
             IsGrounded = false;
         }
     }
 
     void OnGUI() {
-        GUILayout.Space(50f);
-        GUILayout.Label("Grounded: " + isGrounded);
-        GUILayout.Label("Acceleration: " + acceleration);
-        GUILayout.Label("Health: " + health);
+        GUI.Label(new Rect(5f, 60f, 150f, 30f), "Health: " + health);
     }
-
+    
     internal override IEnumerator Die(Vector3 hitPosition) {
-        Application.LoadLevel(0);
+        GameStateSaver.ResetPositions();
         yield return null;
     }
 }

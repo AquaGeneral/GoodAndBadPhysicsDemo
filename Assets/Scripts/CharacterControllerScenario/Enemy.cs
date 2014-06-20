@@ -46,7 +46,7 @@ public class Enemy : Actor {
     }
 
     private void Shoot(Ray ray) {
-        SceneManager.CreateBullet(projectile, ray.origin, Quaternion.FromToRotation(Vector3.right, ray.direction));
+        CharacterSceneManager.CreateBullet(projectile, ray.origin, Quaternion.FromToRotation(Vector3.right, ray.direction));
     }
 
     void OnDrawGizmos() {

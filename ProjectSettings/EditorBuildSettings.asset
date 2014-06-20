@@ -6,4 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start.unity
+  - enabled: 1
+    path: Assets/Scenes/1x Scale.unity
+  - enabled: 1
+    path: Assets/Scenes/10x Scale.unity
+  - enabled: 1
     path: Assets/Scenes/CharacterControllerNormal.unity
+  - enabled: 1
+    path: Assets/Scenes/CharacterControllerRigidbody.unity
+  - enabled: 1
+    path: Assets/Scenes/RigidbodyTransformModifcationNormal.unity
+  - enabled: 1
+    path: Assets/Scenes/RigidbodyTransformModifcationBroken.unity

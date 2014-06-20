@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+// Stores the positions of every transform found it the root of the scene.
 public class GameStateSaver : MonoBehaviour {
     private Dictionary<Transform, Vector3> transformPositions;
 
@@ -25,9 +26,8 @@ public class GameStateSaver : MonoBehaviour {
     }
 
     public static void ResetPositions() {
-        Debug.Log(SceneManager.Instance.Scale);
         foreach(KeyValuePair<Transform, Vector3> pair in Instance.transformPositions) {
-            pair.Key.position = pair.Value * SceneManager.Instance.Scale;
+            pair.Key.position = pair.Value;
         }
     }
 }

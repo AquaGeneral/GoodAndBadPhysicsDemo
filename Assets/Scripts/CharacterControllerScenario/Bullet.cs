@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
 
     // TODO: What happens if this in just Update?
     void FixedUpdate() {
-        transform.Translate(new Vector3(speed * SceneManager.Instance.Scale * Time.fixedDeltaTime, 0f, 0f));
+        transform.Translate(new Vector3(speed * Time.fixedDeltaTime, 0f, 0f));
 
         // Check if the bulet is out of bounds
         Vector3 pos = transform.position;

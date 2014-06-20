@@ -29,7 +29,7 @@ public class PlayerGun : MonoBehaviour {
 
         if(Input.GetButtonDown("Fire1")) {
             Vector3 reticlePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 
-            Input.mousePosition.y, SideCamera.Instance.distance * SceneManager.Instance.Scale));
+            Input.mousePosition.y, SideCamera.Instance.distance));
 
             float angle = Mathf.Atan2(reticlePosition.y - player.position.y, reticlePosition.x - player.position.x) * 180f / Mathf.PI;
 
@@ -39,7 +39,7 @@ public class PlayerGun : MonoBehaviour {
             //Vector3 projectilePosition = player.position - new Vector3(2f * Mathf.Cos(angle), 2f * Mathf.Sin(angle), 0f);
             Vector3 projectilePosition = player.position;
 
-            SceneManager.CreateBullet(projectile, projectilePosition, projectileAngle);
+            CharacterSceneManager.CreateBullet(projectile, projectilePosition, projectileAngle);
 
         }
     }
