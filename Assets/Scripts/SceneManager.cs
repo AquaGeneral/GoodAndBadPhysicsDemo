@@ -4,8 +4,6 @@ using System.Collections;
 public class SceneManager : MonoBehaviour {
     public static SceneManager Instance;
 
-    public GameObject sceneRoot;
-
     public float Scale { get; private set; }
     public float Bounciness { get; private set; }
     public float Drag { get; private set; }
@@ -13,13 +11,14 @@ public class SceneManager : MonoBehaviour {
     public float MaxAngularVelocity { get; private set; }
     public bool UnsyncedPhysics { get; private set; }
     
-
     private Rect bounds;
     public Rect Bounds {
         get {
             return bounds;
         }
     }
+
+    private int selected = -1;
     
     void Awake() {
         Instance = this;
@@ -40,32 +39,30 @@ public class SceneManager : MonoBehaviour {
     void OnGUI() {
         GUILayout.BeginHorizontal();
 
-        GUILayout.BeginVertical();
-        GUILayout.Label("Scale: " + Scale.ToString("0.##"));
-        Scale = GUILayout.HorizontalSlider(Scale, 0.3f, 10f, GUILayout.Width(150f));
-        GUILayout.EndVertical();
+        selected = GUI.SelectionGrid(new Rect(50f, 75f, Screen.width - 100f, Screen.height - 150f), selected, new string[]{"Normal", "Incorrect Scale \n(10x Scale)", 
+            "Rigidbody & Character Controller\nTogether", "Directly Modifying a Rigidbody's\nTransform", "Objects Rolling Forever", "Objects Without Bounciness", 
+            "Rigidbodies Partially Sinking Into\nGeometry", "Instantiating At The Wrong Time", "Too Low FixedTimestep"}, 2);
 
-        GUILayout.BeginVertical();
-        GUILayout.Label("Bounciness: " + Bounciness.ToString("0.##"));
-        Bounciness = GUILayout.HorizontalSlider(Bounciness, 0f, 1f, GUILayout.Width(130f));
-        GUILayout.EndVertical();
+        if(selected != -1) {
+            Debug.Log(selected);
+            switch(selected) {
+                case 0:
+                    Scale = 1f;
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    break;
+                case 1:
+                    Scale = 10f;
+                    transform.localScale = new Vector3(10f, 10f, 10f);
+                    break;
+                case 2:
 
-        GUILayout.BeginVertical();
-        GUILayout.Label("Drag: " + Drag.ToString("0.##"));
-        Drag = GUILayout.HorizontalSlider(Drag, 0f, 1f, GUILayout.Width(130f));
-        GUILayout.EndVertical();
+                    break;
+            }
 
-        GUILayout.BeginVertical();
-        GUILayout.Label("Angular Drag: " + AngularDrag.ToString("0.##"));
-        AngularDrag = GUILayout.HorizontalSlider(AngularDrag, 0f, 1f, GUILayout.Width(130f));
-        GUILayout.EndVertical();
+            GameStateSaver.ResetPositions();
 
-        GUILayout.BeginVertical();
-        GUILayout.Label("Max Angular Velocity: " + MaxAngularVelocity.ToString("0.##"));
-        MaxAngularVelocity = GUILayout.HorizontalSlider(MaxAngularVelocity, 1f, 60f, GUILayout.Width(150f));
-        GUILayout.EndVertical();
-
-        UnsyncedPhysics = GUILayout.Toggle(UnsyncedPhysics, "Unsynced Physics");
+            selected = -1;
+        }
 
         if(GUI.Button(new Rect(Screen.width - 150, 50, 140, 30), "Update Scene")) { 
             ApplyModifiers();
@@ -76,14 +73,14 @@ public class SceneManager : MonoBehaviour {
 
     public static void CreateBullet(GameObject projectile, Vector3 projectilePosition, Quaternion projectileAngle) {
         Transform spawned = ((GameObject)Instantiate(projectile, projectilePosition, projectileAngle)).transform;
-        spawned.parent = Instance.sceneRoot.transform;
+        spawned.parent = Instance.transform;
         spawned.localScale = spawned.localScale * Instance.Scale;
     }
 
     private void ApplyModifiers() {
         // Update Scale
         bounds = new Rect(-50f * Scale, -20f * Scale, 100f * Scale, 20f * Scale);
-        sceneRoot.transform.localScale = new Vector3(Scale, Scale, Scale);
+        transform.localScale = new Vector3(Scale, Scale, Scale);
 
         // Update Max Angular Velocity
         Physics.maxAngularVelocity = MaxAngularVelocity;

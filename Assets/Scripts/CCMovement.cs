@@ -60,9 +60,9 @@ public class CCMovement : Actor {
             accelerationModifier = 1f;
         }
 
-        // Set the horizontal acceleration
+        // Set the horizontal acceleration and move the player back to the center of the Z axis
         acceleration = new Vector3(Input.GetAxisRaw("Horizontal") * speed * accelerationModifier * SceneManager.Instance.Scale * Time.fixedDeltaTime,
-            acceleration.y, acceleration.z);
+            acceleration.y, -transform.position.z * Time.fixedDeltaTime * 2f);
 
         // Apply gravity only when not grounded
         if(IsGrounded == false) {
