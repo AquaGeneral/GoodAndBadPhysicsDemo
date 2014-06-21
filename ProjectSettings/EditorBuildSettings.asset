@@ -16,6 +16,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterControllerRigidbody.unity
   - enabled: 1
+    path: Assets/Scenes/BouncinessNormal.unity
+  - enabled: 1
+    path: Assets/Scenes/BouncinessBroken.unity
+  - enabled: 1
     path: Assets/Scenes/RigidbodyTransformModifcationNormal.unity
   - enabled: 1
     path: Assets/Scenes/RigidbodyTransformModifcationBroken.unity

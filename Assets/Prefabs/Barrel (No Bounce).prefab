@@ -13,7 +13,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 64: {fileID: 6400000}
   m_Layer: 0
-  m_Name: Barrel
+  m_Name: Barrel (No Bounce)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 13400000, guid: 7bee9939230c81849887c9223129d304, type: 2}
+  m_Material: {fileID: 13400000, guid: ab9bd606e83119a4bb65cf35c2371f99, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
