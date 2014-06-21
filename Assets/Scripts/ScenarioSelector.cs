@@ -13,8 +13,8 @@ public class ScenarioSelector : MonoBehaviour {
     private int selected = -1;
     
     private string[] options = new string[]{"Normal Scale", "Incorrect Scale \n<color='#777'>(10x Scale)</color>",  
-        "Character Controller", "Rigidbody & Character Controller\nTogether", 
-        "<b>Not</b> Directly Modifying a Rigidbody's\nTransform", "Directly Modifying a Rigidbody's\nTransform",
+        "Character Controller", "Character Controller &\nRigidbody Together", 
+        "<b>Not</b> Directly Modifying a\nRigidbody's Transform", "Directly Modifying a\nRigidbody's Transform",
         "Objects <b>With</b> Bounciness", "Objects Without Bounciness"};
 
     /**
@@ -29,9 +29,23 @@ public class ScenarioSelector : MonoBehaviour {
     void OnGUI() {
         // If the user taps Escape, toggle the visibility of the Scenario Selector
         if(Event.current.type == EventType.KeyDown && Event.current.isKey && Event.current.keyCode == KeyCode.Escape) {
-            Debug.Log(isSelectingScenario + " " + !isSelectingScenario);
             isSelectingScenario = !isSelectingScenario;
-            Debug.Log("End: " + isSelectingScenario);
+        }
+
+        // Draw scenario navigation
+        if(Application.loadedLevel > 0) {
+            if(Application.loadedLevel - 1 > 0) {
+                int previousLevel = Application.loadedLevel - 2;
+                if(GUI.Button(new Rect(Screen.width - 440f, 10f, 210f, 40f), "Previous: " + options[previousLevel])) {
+                    Application.LoadLevel(previousLevel + 1);
+                }
+            }
+            if(Application.loadedLevel + 1 < Application.levelCount) {
+                int nextLevel = Application.loadedLevel;
+                if(GUI.Button(new Rect(Screen.width - 220f, 10f, 210f, 40f), "Next: " + options[nextLevel])) {
+                    Application.LoadLevel(nextLevel + 1);
+                }
+            }
         }
 
         if(isSelectingScenario) {

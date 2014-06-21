@@ -1050,7 +1050,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 6522ddd04e27fd7448a4fc787f396e08, type: 2}
+  - {fileID: 2100000, guid: 8bf64726e77187d489cb35b9f2f847f6, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1513,11 +1513,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1496336504}
   m_LocalRotation: {x: .0794734284, y: .583708525, z: -.0575541034, w: .806012332}
-  m_LocalPosition: {x: -2.89417958, y: .575982571, z: -1.23897302}
+  m_LocalPosition: {x: -3.62381077, y: 1.7040813, z: -1.73455489}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1561477365}
-  m_RootOrder: 25
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &1556368183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,7 +1627,7 @@ Transform:
   m_GameObject: {fileID: 1561477364}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -.729631186, y: 1.12809873, z: -.495581865}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1119823873}
   - {fileID: 1599793621}
@@ -1654,9 +1654,8 @@ Transform:
   - {fileID: 1199463498}
   - {fileID: 891951985}
   - {fileID: 2019926623}
-  - {fileID: 1496336509}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &1599793619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1683,7 @@ Light:
   m_Type: 0
   m_Color: {r: .933823526, g: 1, b: 1, a: 1}
   m_Intensity: 1.96000004
-  m_Range: 100
+  m_Range: 10
   m_SpotAngle: 68.9810867
   m_CookieSize: 10
   m_Shadows:
@@ -1747,7 +1746,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: .982150078, b: .882352948, a: 1}
   m_Intensity: 1.96000004
-  m_Range: 100
+  m_Range: 10
   m_SpotAngle: 68.9810867
   m_CookieSize: 10
   m_Shadows:
@@ -2068,7 +2067,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2019926618}
   serializedVersion: 2
-  m_Mass: 25
+  m_Mass: 250
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -2138,7 +2137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b1359d3299b49499171ce475414b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 22, y: 2, z: 0}
+  force: {x: 2.20000005, y: .200000003, z: 0}
 --- !u!1 &2102607034
 GameObject:
   m_ObjectHideFlags: 0
