@@ -15,13 +15,8 @@ public class ScenarioSelector : MonoBehaviour {
     private string[] options = new string[]{"Normal Scale", "Incorrect Scale \n<color='#777'>(10x Scale)</color>",  
         "Character Controller", "Character Controller &\nRigidbody Together", 
         "<b>Not</b> Directly Modifying a\nRigidbody's Transform", "Directly Modifying a\nRigidbody's Transform",
-        "Objects <b>With</b> Bounciness", "Objects Without Bounciness"};
-
-    /**
-    * TODO: Add the following:
-    * Rigidbodies Partially Sinking Into Geometry
-    */
-
+        "Objects <b>Not</b> Partially Sinking\nInto Geometry", "Objects Partially Sinking\nInto Geometry"};
+    
     void Awake() {
         DontDestroyOnLoad(gameObject);
     }
