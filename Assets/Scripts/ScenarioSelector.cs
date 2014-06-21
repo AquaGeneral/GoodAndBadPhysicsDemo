@@ -31,23 +31,23 @@ public class ScenarioSelector : MonoBehaviour {
         if(Application.loadedLevel > 0) {
             if(Application.loadedLevel - 1 > 0) {
                 int previousLevel = Application.loadedLevel - 2;
-                if(GUI.Button(new Rect(Screen.width - 440f, 10f, 210f, 40f), "Previous: " + options[previousLevel])) {
+                if(GUI.Button(new Rect(Screen.width - 440f, 10f, 210f, 40f), "<< " + options[previousLevel])) {
                     Application.LoadLevel(previousLevel + 1);
                 }
             }
             if(Application.loadedLevel + 1 < Application.levelCount) {
                 int nextLevel = Application.loadedLevel;
-                if(GUI.Button(new Rect(Screen.width - 220f, 10f, 210f, 40f), "Next: " + options[nextLevel])) {
+                if(GUI.Button(new Rect(Screen.width - 220f, 10f, 210f, 40f), options[nextLevel] + " >>")) {
                     Application.LoadLevel(nextLevel + 1);
                 }
             }
         }
 
         if(isSelectingScenario) {
-            GUI.Label(new Rect((Screen.width - 100f) * 0.5f - 195f, 40f, (Screen.width - 100) * 0.5f, 30f), "Good", scenarioCategoriesTitle);
-            GUI.Label(new Rect((Screen.width - 100f) * 0.5f + 65f, 40f, (Screen.width - 100) * 0.5f, 30f), "Bad (Not Fixed)", scenarioCategoriesTitle);
+            GUI.Label(new Rect((Screen.width - 100f) * 0.5f - 120f, 50f, (Screen.width - 100) * 0.5f, 30f), "Good", scenarioCategoriesTitle);
+            GUI.Label(new Rect((Screen.width - 100f) * 0.5f + 80f, 50f, (Screen.width - 100) * 0.5f, 30f), "Bad (Not Fixed)", scenarioCategoriesTitle);
 
-            selected = GUI.SelectionGrid(new Rect(90f, 110f, Screen.width - 180f, Screen.height - 200f), selected, options, 2, gridItem);
+            selected = GUI.SelectionGrid(new Rect(30f, 90f, Screen.width - 60f, Screen.height - 110f), selected, options, 2, gridItem);
 
             // Check if the user clicked one of the buttons
             if(selected != -1) {
@@ -57,7 +57,7 @@ public class ScenarioSelector : MonoBehaviour {
                 selected = -1;
             }
         } else {
-            GUI.Label(new Rect(5, 5, 250, 25), "Press Escape to show Scenario Selector", escapeShortcutTip);
+            GUI.Label(new Rect(5, Screen.height - 30, 250, 25), "Press Escape to show Scenario Selector", escapeShortcutTip);
         }
     }
 }
